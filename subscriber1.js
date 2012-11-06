@@ -15,5 +15,20 @@ connection.on('ready', function () {
                 console.log(payload)
             })
         })
+    });
+
+    connection.exchange("direct_exchange", options={type:'direct'}, function(exchange) {
+        // Recieve messages
+        connection.queue("direct_queue", function(queue){
+            console.log('Created direct queue')
+            queue.bind(exchange, '');
+            queue.subscribe(function (message) {
+                console.log('subscribed to direct queue')
+                var encoded_payload = unescape(message.data)
+                var payload = JSON.parse(encoded_payload)
+                console.log('direct subscriber one received a message:')
+                console.log(payload)
+            })
+        })
     })
 })

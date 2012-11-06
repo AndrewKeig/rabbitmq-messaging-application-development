@@ -16,5 +16,21 @@ connection.on('ready', function () {
             sendMessage(exchange, test_message)
             count += 1;
         }, 10)
+    });
+
+    connection.exchange("direct_exchange", options={type:'direct'}, function(exchange) {
+
+        var sendMessage = function(exchange, payload) {
+            console.log('about to publish to direct')
+            var encoded_payload = JSON.stringify(payload);
+            exchange.publish('', encoded_payload, {})
+        }
+
+        setInterval( function() {
+            var test_message = 'direct test '+ count
+            sendMessage(exchange, test_message)
+            count += 100;
+        }, 10)
     })
+
 })
