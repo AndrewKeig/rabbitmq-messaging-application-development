@@ -1,4 +1,4 @@
-bunny
+wabbits
 =====
 
 Experimenting with node-amqp and rabbitmq
