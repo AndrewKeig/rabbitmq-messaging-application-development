@@ -1,26 +1,37 @@
-
-var connection = require('amqp').createConnection();
-
-function sleep(milliseconds)
-{
-    var start = new Date().getTime();
-    while (new Date().getTime() < start + milliseconds);
-}
+var connection = require('amqp').createConnection({url: "amqp://guest:guest@localhost:5672"});
 
 connection.on('ready', function() {
     console.log('Connected to ' + connection.serverProperties.product);
 
-    var exchange = connection.exchange('hello-world-exchange', options={type:'direct'});
+    var exchange = connection.exchange('hello-world-exchange', {type: 'direct'});
     var queue = connection.queue('hello-world-queue');
 
+	exchange.on('exchangeDeclare', function() {
+		console.log('Declare hello-world-exchange' );
+	});
+	
+	exchange.on('exchangeDeclareOk', function(args) {
+		console.log('Declare Ok hello-world-exchange'+ JSON.stringify(args));
+	});
+	
+	exchange.on('exchangeDeleteOk', function(args) {
+		console.log('Delete Ok hello-world-exchange'+ JSON.stringify(args));
+	});
+	
     queue.on('queueDeclareOk', function(args) {
-        queue.bind(exchange,'');
+		console.log('queueDeclareOk');
+        queue.bind(exchange, 'hello-key');
 
-        queue.subscribe({ack:true},function(msg) {
-            console.log('Message received:');
-            console.log(msg.count);
-            sleep(5000);
-            console.log('Message processed. Waiting for next message.');
+		//queue.subscribe({ack:false, prefetchCount: 1},function(msg) {
+		//the above is the default
+		//AMQP server only delivers a single message at a time. When you want the next message, call q.shift()
+		//You can also use the prefetchCount option to increase the window of how many messages the server will send you before you need to ack (quality of service).
+		//Setting prefetchCount to 0 will make that window unlimited.
+		
+        queue.subscribe({ack:true, prefetchCount: 1}, function(message) {
+            var encoded_payload = unescape(message.data);
+            var payload = JSON.parse(encoded_payload);
+            console.log(payload);
             queue.shift();
         });
     });
