@@ -10,12 +10,13 @@ var rl = readline.createInterface({
 });
 
 connection.on('ready', function () {
-    connection.exchange("direct_exchange", options={type:'direct'}, function(exchange) {
-        rl.on('line', function (orderId) {
+    connection.exchange("direct_e_exchange", options={type:'direct'}, function(exchange) {
+        connection.queue("direct_e_queue", function(queue){
+            rl.on('line', function (orderId) {
             var order = new Shop.Order(orderId);
             console.log('Adding %s to queue.', JSON.stringify(order));
-            var encoded_payload = JSON.stringify(order);
-            exchange.publish('', encoded_payload, {});
+            exchange.publish('', JSON.stringify(order), {});
+            });
         });
     })
 });
