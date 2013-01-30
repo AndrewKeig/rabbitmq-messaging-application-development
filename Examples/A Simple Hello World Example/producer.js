@@ -1,3 +1,5 @@
+require('../credits').Print('A Simple Hello World Example.');
+
 var readline = require('readline');
 var connection = require('amqp').createConnection({url: "amqp://guest:guest@localhost:5672"});
 var rl = readline.createInterface({ input: process.stdin, output: process.stdout });
@@ -25,7 +27,7 @@ connection.on('ready', function() {
         queue.bind(exchange, 'hello-key');
 
 		queue.on('queueBindOk', function() {
-		console.log('Bound hello-world-queue');
+		    console.log('Bound hello-world-queue');
 			
 			rl.on('line', function (cmd) {
 				console.log('Adding %s to queue.', cmd);
