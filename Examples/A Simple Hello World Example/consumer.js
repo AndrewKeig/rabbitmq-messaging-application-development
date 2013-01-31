@@ -1,4 +1,5 @@
 var connection = require('amqp').createConnection({url: "amqp://guest:guest@localhost:5672"});
+var helloWorld = [];
 
 connection.on('ready', function() {
     console.log('Connected to ' + connection.serverProperties.product);
@@ -29,10 +30,12 @@ connection.on('ready', function() {
 		//Setting prefetchCount to 0 will make that window unlimited.
 		
         queue.subscribe({ack:true, prefetchCount: 1}, function(message) {
-            var encoded_payload = unescape(message.data);
-            var payload = JSON.parse(encoded_payload);
-            console.log(payload);
-            queue.shift();
+            setTimeout(function () {
+                var encoded_payload = unescape(message.data);
+                var payload = JSON.parse(encoded_payload);
+                console.log(payload);
+                queue.shift();
+            }, 5000);
         });
     });
 });

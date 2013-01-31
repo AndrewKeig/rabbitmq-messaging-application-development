@@ -1,8 +1,15 @@
 require('../credits').Print('A Simple Hello World Example.');
 
-var readline = require('readline');
 var connection = require('amqp').createConnection({url: "amqp://guest:guest@localhost:5672"});
-var rl = readline.createInterface({ input: process.stdin, output: process.stdout });
+
+var helloWorld = [];
+//helloWorld.push("Hello World", "Hola Mundo", "bonjour tout le monde", "Hallo Welt", "ciao mondo");
+
+helloWorld.push(" _  _     _ _      __      __       _    _ _ ");
+helloWorld.push("| || |___| | |___  \ \    / /__ _ _| |__| | |");
+helloWorld.push("| __ / -_) | / _ \  \ \/\/ / _ \ '_| / _` |_|");
+helloWorld.push("|_||_\___|_|_\___/   \_/\_/\___/_| |_\__,_(_)");
+
 
 connection.on('ready', function() {
     console.log('Connected to ' + connection.serverProperties.product);
@@ -28,10 +35,10 @@ connection.on('ready', function() {
 
 		queue.on('queueBindOk', function() {
 		    console.log('Bound hello-world-queue');
-			
-			rl.on('line', function (cmd) {
-				console.log('Adding %s to queue.', cmd);
-				var encoded_payload = JSON.stringify(cmd);
+
+            helloWorld.forEach(function(letter) {
+				console.log('Adding %s to queue.', letter);
+				var encoded_payload = JSON.stringify(letter);
 				exchange.publish('hello-key', encoded_payload, {});
 			});
         });
