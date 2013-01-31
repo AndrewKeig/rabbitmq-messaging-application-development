@@ -1,4 +1,4 @@
-require('../credits').Print('A Simple Hello World Example.');
+require('../setup').Print('A Simple Hello World Example.');
 
 var readline = require('readline');
 var connection = require('amqp').createConnection({url: "amqp://guest:guest@localhost:5672"});

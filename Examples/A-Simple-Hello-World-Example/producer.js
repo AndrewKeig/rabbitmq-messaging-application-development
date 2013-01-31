@@ -1,15 +1,7 @@
-require('../credits').Print('A Simple Hello World Example.');
-
+var setup = require('../setup');
 var connection = require('amqp').createConnection({url: "amqp://guest:guest@localhost:5672"});
-
-var helloWorld = [];
-//helloWorld.push("Hello World", "Hola Mundo", "bonjour tout le monde", "Hallo Welt", "ciao mondo");
-
-helloWorld.push(" _  _     _ _      __      __       _    _ _ ");
-helloWorld.push("| || |___| | |___  \ \    / /__ _ _| |__| | |");
-helloWorld.push("| __ / -_) | / _ \  \ \/\/ / _ \ '_| / _` |_|");
-helloWorld.push("|_||_\___|_|_\___/   \_/\_/\___/_| |_\__,_(_)");
-
+setup.Init('A Simple Hello World Example.');
+var helloWorld = ["Hello World", "Hola Mundo", "bonjour tout le monde", "Hallo Welt", "ciao mondo"];
 
 connection.on('ready', function() {
     console.log('Connected to ' + connection.serverProperties.product);
@@ -47,15 +39,3 @@ connection.on('ready', function() {
 
 
 
-//http://hjzhao.blogspot.co.uk/2012/05/first-error-with-nodejs.html
-process.on('SIGINT', function() {
-    process.exit(1);
-});
-
-process.on('SIGTSTP', function() {
-    process.exit(1);
-});
-
-process.on('SIGTERM', function(){
-    process.exit(1);
-});

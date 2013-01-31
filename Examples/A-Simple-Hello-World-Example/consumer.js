@@ -1,4 +1,6 @@
+var setup = require('../setup');
 var connection = require('amqp').createConnection({url: "amqp://guest:guest@localhost:5672"});
+setup.Init('A Simple Hello World Example.');
 var helloWorld = [];
 
 connection.on('ready', function() {
@@ -23,32 +25,12 @@ connection.on('ready', function() {
 		console.log('queueDeclareOk');
         queue.bind(exchange, 'hello-key');
 
-		//queue.subscribe({ack:false, prefetchCount: 1},function(msg) {
-		//the above is the default
-		//AMQP server only delivers a single message at a time. When you want the next message, call q.shift()
-		//You can also use the prefetchCount option to increase the window of how many messages the server will send you before you need to ack (quality of service).
-		//Setting prefetchCount to 0 will make that window unlimited.
-		
-        queue.subscribe({ack:true, prefetchCount: 1}, function(message) {
+        queue.subscribe(function(message) {
             setTimeout(function () {
-                var encoded_payload = unescape(message.data);
-                var payload = JSON.parse(encoded_payload);
+                //var encoded_payload = unescape(message.data);
+                var payload = JSON.parse(message.data);
                 console.log(payload);
-                queue.shift();
             }, 5000);
         });
     });
-});
-
-//http://hjzhao.blogspot.co.uk/2012/05/first-error-with-nodejs.html
-process.on('SIGINT', function() {
-    process.exit(1);
-});
-
-process.on('SIGTSTP', function() {
-    process.exit(1);
-});
-
-process.on('SIGTERM', function(){
-    process.exit(1);
 });
