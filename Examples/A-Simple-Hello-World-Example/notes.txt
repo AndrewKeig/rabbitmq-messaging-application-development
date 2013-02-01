@@ -1,0 +1,38 @@
+This example simply demonstrates the concept of messaging; a producer publishing messages and
+consumer(s) subscribing and receiving those messages.
+
+We introduce the concepts of Connections, Exchanges, Bindings, Queues and some
+AMQP 0-9-1 Methods (queueDeclareOk, queueBindOk)
+
+This diagram shows the overall AMQ model:
+
+                                 Server
+                      +----------------------------+
+                      |       Virtual host         |
+                      |   +-------------------+    |
+                      |   |     Exchange      |    |
+    +-------------+   |   |     +-------+     |    |
+    |  Publisher  | ----------> |       |     |    |
+    |             |   |   |     +---+---+     |    |
+    +-------------+   |   |         |         |    |
+                      |   |      Message      |    |
+                      |   |       Queue       |    |
+    +-------------+   |   |     +-------+     |    |
+    |  Consumer   | <---------- +-------+     |    |
+    |             |   |   |     +-------+     |    |
+    +-------------+   |   |     +-------+     |    |
+                      |   +-------------------+    |
+                      +----------------------------+
+
+
+http://www.rabbitmq.com/man/rabbitmqctl.1.man.html
+
+rabbitmqctl list_connections
+rabbitmqctl list_channels
+rabbitmqctl list_consumers
+rabbitmqctl list_exchanges
+rabbitmqctl list_bindings
+rabbitmqctl list_queues
+rabbitmqctl list_users
+rabbitmqctl list_vhosts
+rabbitmqctl list_parameters
