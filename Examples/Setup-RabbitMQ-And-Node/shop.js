@@ -7,9 +7,14 @@ function OrderProcessor(order) {
     this.Order = function() { return order; }
 
     this.Execute = function() {
-        console.log("Processing order...");
-        this.CompleteOrder();
-        this.DisplayConfirmation();
+        try {
+            console.log("INFO, Processing order");
+            this.CompleteOrder();
+            this.DisplayConfirmation();
+        }
+        catch(ex) {
+            this.LogMessage('ERROR, Unable to process payment');
+        }
     };
 
     this.CompleteOrder = function() {
@@ -23,24 +28,50 @@ function OrderProcessor(order) {
         }
     };
 
-    this.DisplayConfirmation = function() {
-        setTimeout( function() { console.log("Order complete..."); }, 12000)
-    };
     this.PaymentGateway = function() {
-        setTimeout( function() { console.log("Making payment, calling payment gateway..."); }, 2000);
-        this.Status = "OrderComplete";
+        try {
+            setTimeout( function() { console.log('INFO, Made payment');}, 2000);
+            this.Status = "OrderComplete";
+        }
+        catch(ex) {
+            console.log('ERROR, Unable to make payment');
+        }
     };
     this.UpdateOrderProfile = function() {
-        setTimeout( function() { console.log("Updating order status and order history..."); }, 4000)
+        try {
+            setTimeout( function() { console.log('INFO, Updated order status'); }, 4000);
+        }
+        catch(ex) {
+            console.log('ERROR, Unable to update order status');
+        }
     };
     this.UpdateInventory = function() {
-        setTimeout( function() { console.log("Updating inventory..."); }, 6000)
+        try {
+            setTimeout( function() { console.log('INFO, Updated inventory'); }, 6000);
+        }
+        catch(ex) {
+            console.log('ERROR, Unable to update inventory');
+        }
     };
     this.SendEmailConfirmation = function() {
-        setTimeout( function() { console.log("Sending email confirmation..."); }, 8000)
+        try {
+            setTimeout( function() { console.log('INFO, Sent email confirmation');}, 8000);
+        }
+        catch(ex) {
+            console.log('ERROR, Unable to send email');
+        }
     };
     this.UpdateReporting = function() {
-        setTimeout( function() { console.log("Updating reporting..."); }, 10000)
+        try {
+            setTimeout( function() { console.log('INFO, Updated reporting'); }, 10000);
+        }
+        catch(ex) {
+            console.log('ERROR, Unable to update reporting');
+        }
+    };
+
+    this.DisplayConfirmation = function() {
+        setTimeout( function() { console.log('INFO, Order complete...'); }, 12000);
     };
 }
 
