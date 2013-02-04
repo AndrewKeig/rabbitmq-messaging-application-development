@@ -9,6 +9,19 @@ module.exports.Init = function(example){
     console.log('- - - - - - - - - - - - - - - - - - - - - - - - - ');
     console.log('');
 
+    console.log("+---+   +---+");
+    console.log("|   |   |   |");
+    console.log("|   |   |   |");
+    console.log("|   |   |   |");
+    console.log("|   +---+   +-------+");
+    console.log("|                   |");
+    console.log("| RabbitMQ  +---+   |");
+    console.log("|           |   |   |");
+    console.log("|           +---+   |");
+    console.log("|                   |");
+    console.log("+-------------------+");
+
+
     //http://hjzhao.blogspot.co.uk/2012/05/first-error-with-nodejs.html
     process.on('SIGINT', function() {
         process.exit(1);
