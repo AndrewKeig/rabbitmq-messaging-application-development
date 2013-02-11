@@ -2,9 +2,11 @@ require('../setup').Init('A Simple Hello World Example.');
 var connection = require('amqp').createConnection({url: "amqp://guest:guest@localhost:5672"});
 
 var messages = [];
-messages.push('(\\___/)(\\___/)(\\___/)(\\___/)(\\___/)');
-messages.push("(=’.'=)(=’.'=)(=’.'=)(=’.'=)(=’.'=)       –> hello world");
-messages.push('(")_(")(")_(")(")_(")(")_(")(")_(")');
+
+messages.push('  (\\-/)');
+messages.push("  ('.')  –> hello world");
+messages.push('o(") (")');
+
 
 var count = 1;
 
