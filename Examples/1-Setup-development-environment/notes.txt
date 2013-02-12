@@ -4,6 +4,47 @@ consumer(s) subscribing and receiving those messages.
 We introduce the concepts of Connections, Exchanges, Bindings, Queues and some
 AMQP 0-9-1 Methods (queueDeclareOk, queueBindOk)
 
+
+Examples
+
+Get a list of exchanges
+$ rabbitmqadmin -V test list exchanges
+
+
++-------------+---------+-------+---------+-------------+
+|    name     | durable | vhost |  type   | auto_delete |
++-------------+---------+-------+---------+-------------+
+|             | True    | test  | direct  | False       |
+| amq.direct  | True    | test  | direct  | False       |
+| amq.fanout  | True    | test  | fanout  | False       |
+| amq.headers | True    | test  | headers | False       |
+| amq.match   | True    | test  | headers | False       |
+| amq.topic   | True    | test  | topic   | False       |
++-------------+---------+-------+---------+-------------+
+
+
+
+    +-------------+                    +-------+
+    |  Producer   | -----------------> |Message|
+    | application |                    +---+---+
+    +-------------+                        |
+                                           |
+                                      +---------+
+                                      |Exchange |
+                                      +----+----+
+                                           |
+                              +------------+------------+
+                              |            |            |
+                           Message      Message      Message
+                            Queue        Queue        Queue
+    +-------------+       +-------+    +-------+    +-------+
+    |  Consumer   |       +-------+    +-------+    +-------+
+    | application | <---- |Message|    +-------+    +-------+
+    +-------------+       +-------+    +-------+    +-------+
+
+
+
+
 This diagram shows the overall AMQ model:
 
                                  Server
@@ -12,7 +53,7 @@ This diagram shows the overall AMQ model:
                       |   +-------------------+    |
                       |   |     Exchange      |    |
    +-------------+    |   |     +-------+     |    |
-   |  Publisher  |------------> |       |     |    |
+   |  Producer   |------------> |       |     |    |
    |  Publishes  |    |   |     |       |     |    |
    |  Message To |    |   |     +---+---+     |    |
    |  Exchange   |    |   |         |         |    |

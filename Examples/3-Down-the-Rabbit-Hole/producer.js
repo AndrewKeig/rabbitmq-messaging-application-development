@@ -1,4 +1,4 @@
-require('../setup').Init('A Simple Hello World Example.');
+require('../setup').Init('Down the rabbit hole.');
 var connection = require('amqp').createConnection({url: "amqp://guest:guest@localhost:5672"});
 
 var messages = [];
@@ -6,7 +6,6 @@ var messages = [];
 messages.push('  (\\-/)');
 messages.push("  ('.')  –> hello world");
 messages.push('o(") (")');
-
 
 var count = 1;
 
@@ -20,7 +19,7 @@ connection.on('ready', function() {
         queue.bind(exchange, 'hello.key');
 
 		queue.on('queueBindOk', function() {
-		    console.log('Bound hello.world.queue');
+		    console.log('Queue Bind Ok hello.world.queue');
 
             messages.forEach(function(data) {
                 setTimeout(function () {
