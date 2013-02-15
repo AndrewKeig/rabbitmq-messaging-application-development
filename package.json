@@ -1,8 +1,8 @@
 {
-    "name": "wabbits"
+    "name": "packt-instant-rabbitmq"
+  , "description": "Instant RabbitMQ Messaging Application Development How-to"
   , "version": "0.0.1"
-  , "private": true
   , "dependencies": {
-     "amqp": ">= 0.0.1"
+     "amqp": ">= 0.1.5"
   }
 }

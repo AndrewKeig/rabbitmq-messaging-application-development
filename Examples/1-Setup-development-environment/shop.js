@@ -41,5 +41,5 @@ function OrderProcessor(order) {
     };
 }
 
-var processor = new OrderProcessor(new Order(1));
-processor.Place();
+module.exports.Order = Order;
+module.exports.OrderProcessor = OrderProcessor;
