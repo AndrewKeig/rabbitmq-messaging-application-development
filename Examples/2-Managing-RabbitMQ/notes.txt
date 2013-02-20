@@ -1,9 +1,0 @@
-1. Setup development environment
-2. Managing RabbitMQ
-3. Down the Rabbit Hole
-4. Queuing for later delivery
-5. Reliable fault tolerant applications
-6. Publish Subscribe
-7. Routing Messages
-8. Clustering
-9. Security

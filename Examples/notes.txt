@@ -41,10 +41,14 @@ $ rabbitmqadmin -V test list exchanges
     |  Consumer   |       +-------+    +-------+    +-------+
     | application | <---- |Message|    +-------+    +-------+
     +-------------+       +-------+    +-------+    +-------+
+	
 
 
 
 
+
+	
+	
 This diagram shows the overall AMQ model:
 
                                  Server

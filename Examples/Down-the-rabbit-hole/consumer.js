@@ -6,8 +6,10 @@ connect.on('ready', function() {
     var q = connect.queue('hello.world.q');
     q.on('queueDeclareOk', function(args) {
         q.bind(ex, 'hello.key');
-        q.subscribe(function(message) {
-            console.log(JSON.parse(message.data.toString()));
+        q.on('queueBindOk', function() {
+            q.subscribe(function(message) {
+                console.log(JSON.parse(message.data.toString()));
+            });
         });
     });
 });

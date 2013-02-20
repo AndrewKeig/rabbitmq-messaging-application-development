@@ -19,6 +19,3 @@ connect.on('ready', function() {
         });
     });
 });
-
-
-
