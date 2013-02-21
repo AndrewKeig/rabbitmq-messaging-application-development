@@ -1,18 +1,13 @@
-function Order(orderId) {
-    this.OrderId = orderId;
-    this.Status = "OrderProcessing";
-}
-
-function OrderProcessor(order) {
-    this.Order = function() { return order; }
-    this.Place = function() {
+module.exports = function OrderService(order) {
+    this.Order = function() { return order; };
+    this.Checkout = function() {
         console.log("INFO, Placed order");
-        this.Process();
+        this.ProcessOrder();
         this.DisplayConfirmation();
     };
-    this.Process = function() {
+    this.ProcessOrder = function() {
         this.PaymentGateway();
-        this.UpdateOrder();
+        this.UpdateStatus();
 
         if (this.Status === 'OrderComplete') {
             this.UpdateInventory();
@@ -24,8 +19,8 @@ function OrderProcessor(order) {
         setTimeout( function() { console.log('INFO, Made payment');}, 2000);
         this.Status = "OrderComplete";
     };
-    this.UpdateOrder = function() {
-        setTimeout( function() { console.log('INFO, Updated order status'); }, 4000);
+    this.UpdateStatus = function() {
+        setTimeout( function() { console.log('INFO, Updated status'); }, 4000);
     };
     this.UpdateInventory = function() {
         setTimeout( function() { console.log('INFO, Updated inventory'); }, 6000);
@@ -39,7 +34,4 @@ function OrderProcessor(order) {
     this.DisplayConfirmation = function() {
         setTimeout( function() { console.log('INFO, Order complete...'); }, 12000);
     };
-}
-
-module.exports.Order = Order;
-module.exports.OrderProcessor = OrderProcessor;
+};
