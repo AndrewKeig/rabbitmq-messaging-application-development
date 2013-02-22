@@ -1,8 +1,0 @@
-{
-    "name": "wabbits"
-  , "version": "0.0.1"
-  , "private": true
-  , "dependencies": {
-     "amqp": ">= 0.0.1"
-  }
-}

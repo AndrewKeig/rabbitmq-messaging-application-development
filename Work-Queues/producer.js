@@ -1,5 +1,5 @@
 require('../setup').Init('Queuing for later delivery.');
-var order = require('../shop/order');
+var order = require('../Shop/order');
 var orderService = require('./orderService');
 var connect = require('amqp').createConnection();
 var orderId = 0;
