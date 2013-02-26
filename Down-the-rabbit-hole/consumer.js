@@ -2,10 +2,9 @@
 var connect = require('amqp').createConnection();
 
 connect.on('ready', function() {
-    var ex = connect.exchange('hello.world.ex', {type: 'direct'});
-    var q = connect.queue('hello.world.q');
+    var q = connect.queue('hello');
     q.on('queueDeclareOk', function(args) {
-        q.bind(ex, 'hello.key');
+        q.bind('#');
         q.on('queueBindOk', function() {
             q.subscribe(function(message) {
                 console.log(JSON.parse(message.data.toString()));

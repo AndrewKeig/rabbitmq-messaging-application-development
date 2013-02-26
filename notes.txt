@@ -51,6 +51,8 @@ $ rabbitmqadmin -V test list exchanges
 	
 This diagram shows the overall AMQ model:
 
+
+
                                  Server
                       +----------------------------+
                       |       Virtual host         |
