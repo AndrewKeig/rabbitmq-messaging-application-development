@@ -8,9 +8,9 @@ module.exports = function OrderService(order) {
         this.PaymentGateway();
         this.UpdateStatus();
         if (this.Status === 'OrderComplete')
-            OrderComplete();
+            this.ProcessOrderDependencies();
     };
-    this.OrderComplete = function(){
+    this.ProcessOrderDependencies = function(){
         this.UpdateInventory();
         this.SendEmail();
         this.UpdateReporting();

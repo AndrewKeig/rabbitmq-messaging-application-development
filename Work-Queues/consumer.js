@@ -1,4 +1,4 @@
-require('../setup').Init('Queuing for later delivery.');
+require('../setup').Init('Work Queues.');
 var orderService = require('./orderService');
 var connect = require('amqp').createConnection();
 
