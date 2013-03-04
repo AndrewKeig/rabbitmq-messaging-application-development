@@ -2,16 +2,19 @@ module.exports = function OrderService(order) {
     this.Order = order;
     this.Checkout = function() {
         console.log("INFO, Placed order " + this.Order.OrderId);
-        console.log('INFO, Thank you for placing your order...');
     };
     this.ProcessOrder = function() {
         this.PaymentGateway();
         this.UpdateStatus();
+        console.log('INFO, Thank you for placing your order...');
+    };
+    this.CompleteOrder = function() {
         if (this.Status === 'OrderComplete') {
             this.UpdateInventory();
             this.SendEmail();
             this.UpdateReporting();
         }
+        console.log('INFO, Completing order...');
     };
     this.PaymentGateway = function() {
         console.log('INFO, Made payment');
@@ -28,8 +31,5 @@ module.exports = function OrderService(order) {
     };
     this.UpdateReporting = function() {
         console.log('INFO, Updated reporting');
-    };
-    this.DisplayConfirmation = function() {
-        console.log('INFO, Order complete...');
     };
 };

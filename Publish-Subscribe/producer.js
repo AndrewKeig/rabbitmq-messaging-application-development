@@ -17,7 +17,20 @@ connect.on('ready', function() {
                 service.ProcessOrder();
                 publish = ex.publish('order.key', JSON.stringify(newOrder), {deliveryMode:2});
                 publish.on('ack', function(){
-                    console.log('INFO, Order has been acknowledged.');
+                    //service.CompleteOrder();
+                    var exc = connect.exchange('complete.order.exchange', {type: 'direct', confirm:true});
+                    var qc = connect.queue('complete.order.queue', {durable:true, autoDelete:false});
+
+                    console.log('0');
+                    qc.on('queueDeclareOk', function(args) {
+                        console.log('1');
+                        qc.bind('complete.order.exchange', 'complete-order.key');
+                        console.log('2');
+                        qc.on('queueBindOk', function() {
+                            console.log('3');
+                            exc.publish('complete-order.key', JSON.stringify(orderId), {deliveryMode:2});
+                        });
+                    });
                 });
             // }, 1000);
         });

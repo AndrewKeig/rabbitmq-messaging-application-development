@@ -3,9 +3,10 @@ var order = require('../Shop/order');
 var orderService = require('./orderService');
 var connect = require('amqp').createConnection();
 var orderId = 0;
+
 connect.on('ready', function() {
     var ex = connect.exchange('shop.exchange', {type: 'direct'});
-    var q = connect.queue('shop.queue', {durable:true});
+    var q = connect.queue('shop.queue', {durable:true, autoDelete:false});
     q.on('queueDeclareOk', function(args) {
         q.bind('shop.exchange', 'order.key');
         q.on('queueBindOk', function() {
