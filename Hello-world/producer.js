@@ -1,5 +1,5 @@
 //source ~/.bashrc
-//require('../setup').Init('Down the rabbit hole.');
+require('../setup').Init('Hello World.');
 var connect = require('amqp').createConnection();
 var messages = [];
 messages.push(' (\\-/)');

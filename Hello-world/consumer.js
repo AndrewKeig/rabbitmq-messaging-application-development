@@ -1,4 +1,4 @@
-//require('../setup').Init('Down the rabbit hole.');
+require('../setup').Init('Hello World.');
 var connect = require('amqp').createConnection();
 
 connect.on('ready', function() {

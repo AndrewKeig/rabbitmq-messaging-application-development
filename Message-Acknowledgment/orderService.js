@@ -2,15 +2,15 @@ module.exports = function OrderService(order) {
     this.Order = order;
     this.Checkout = function() {
         console.log("INFO, Placed order " + this.Order.OrderId);
-        console.log('INFO, Thank you for placing your order...');
     };
     this.ProcessOrder = function() {
         this.PaymentGateway();
         this.UpdateStatus();
         if (this.Status === 'OrderComplete')
-            ProcessOrderDependencies();
+            this.ProcessOrderDetails();
+        console.log('INFO, Thank you for placing your order...');
     };
-    this.ProcessOrderDependencies = function(){
+    this.ProcessOrderDetails = function(){
         this.UpdateInventory();
         this.SendEmail();
         this.UpdateReporting();
@@ -30,8 +30,5 @@ module.exports = function OrderService(order) {
     };
     this.UpdateReporting = function() {
         console.log('INFO, Updated reporting');
-    };
-    this.DisplayConfirmation = function() {
-        console.log('INFO, Order complete...');
     };
 };

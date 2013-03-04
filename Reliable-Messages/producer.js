@@ -1,12 +1,11 @@
-//require('../setup').Init('Reliable Messaging.');
-var order = require('../../Shop/order');
+require('../setup').Init('Reliable Messages.');
+var order = require('../Shop/order');
 var orderService = require('./orderService');
 var connect = require('amqp').createConnection();
 var orderId = 0;
-
 connect.on('ready', function() {
-    var ex = connect.exchange('shop.exchange', {type: 'direct', durable:true, autoDelete:false});
-    var q = connect.queue('shop.queue', {durable:true, autoDelete:false});
+    var ex = connect.exchange('shop.exchange', {type: 'direct'});
+    var q = connect.queue('shop.queue', {durable:true});
     q.on('queueDeclareOk', function(args) {
         q.bind('shop.exchange', 'order.key');
         q.on('queueBindOk', function() {
@@ -16,7 +15,6 @@ connect.on('ready', function() {
                 var service = new orderService(newOrder);
                 service.Checkout();
                 ex.publish('order.key', JSON.stringify(newOrder), {deliveryMode:2});
-                console.log('INFO, Order processed...');
             }, 100);
         });
     });

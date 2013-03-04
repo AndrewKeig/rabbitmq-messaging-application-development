@@ -2,6 +2,7 @@ module.exports = function OrderService(order) {
     this.Order = order;
     this.Checkout = function() {
         console.log("INFO, Placed order " + this.Order.OrderId);
+        this.DisplayConfirmation();
     };
     this.ProcessOrder = function() {
         this.PaymentGateway();
@@ -11,22 +12,24 @@ module.exports = function OrderService(order) {
             this.SendEmail();
             this.UpdateReporting();
         }
-        console.log('INFO, Thank you for placing your order...');
     };
     this.PaymentGateway = function() {
-        console.log('INFO, Made payment');
+        setTimeout( function() { console.log('INFO, Made payment');}, 2000);
         this.Status = "OrderComplete";
     };
     this.UpdateStatus = function() {
-        console.log('INFO, Updated status');
+        setTimeout( function() { console.log('INFO, Updated status');}, 4000);
     };
     this.UpdateInventory = function() {
-        console.log('INFO, Updated inventory');
+        setTimeout( function() { console.log('INFO, Updated inventory');}, 6000);
     };
     this.SendEmail = function() {
-        console.log('INFO, Sent email');
+        setTimeout( function() { console.log('INFO, Sent email');}, 8000);
     };
     this.UpdateReporting = function() {
-        console.log('INFO, Updated reporting');
+        setTimeout( function() { console.log('INFO, Updated reporting');}, 10000);
+    };
+    this.DisplayConfirmation = function() {
+        setTimeout( function() { console.log('INFO, Order complete...');}, 12000);
     };
 };
