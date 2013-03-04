@@ -6,14 +6,12 @@ module.exports = function OrderService(order) {
     this.ProcessOrder = function() {
         this.PaymentGateway();
         this.UpdateStatus();
-        if (this.Status === 'OrderComplete')
-            this.ProcessOrderDetails();
+        if (this.Status === 'OrderComplete') {
+            this.UpdateInventory();
+            this.SendEmail();
+            this.UpdateReporting();
+        }
         console.log('INFO, Thank you for placing your order...');
-    };
-    this.ProcessOrderDetails = function(){
-        this.UpdateInventory();
-        this.SendEmail();
-        this.UpdateReporting();
     };
     this.PaymentGateway = function() {
         console.log('INFO, Made payment');
