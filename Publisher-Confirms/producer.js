@@ -11,15 +11,15 @@ connect.on('ready', function() {
         q.bind('shop.exchange', 'order.key');
         q.on('queueBindOk', function() {
             console.log("Place your order");
-            //setInterval(function(){
+             setInterval(function(){
                 var newOrder = new order(++orderId);
                 var service = new orderService(newOrder);
                 service.ProcessOrder();
-                publish = ex.publish('order.key', JSON.stringify(newOrder), {deliveryMode:2});
-                publish.on('ack', function(){
-                    console.log('INFO, Order has been acknowledged.');
+                publish = ex.publish('order.key', JSON.stringify(newOrder), {deliveryMode:2}, function(isError){
+                    if (isError)
+                        console.log('ERROR, Order has not been acknowledged. ' + args);
                 });
-            // }, 1000);
+             }, 1000);
         });
     });
 });

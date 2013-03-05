@@ -1,4 +1,4 @@
-require('../setup').Init('Reliable Messages.');
+require('../setup').Init('Persistent Messages.');
 var order = require('../Shop/order');
 var orderService = require('./orderService');
 var connect = require('amqp').createConnection();

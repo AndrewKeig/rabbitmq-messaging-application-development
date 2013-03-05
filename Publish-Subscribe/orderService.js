@@ -1,3 +1,5 @@
+var connect = require('amqp').createConnection();
+
 module.exports = function OrderService(order) {
     this.Order = order;
     this.Checkout = function() {
@@ -7,14 +9,7 @@ module.exports = function OrderService(order) {
         this.PaymentGateway();
         this.UpdateStatus();
         console.log('INFO, Thank you for placing your order...');
-    };
-    this.CompleteOrder = function() {
-        if (this.Status === 'OrderComplete') {
-            this.UpdateInventory();
-            this.SendEmail();
-            this.UpdateReporting();
-        }
-        console.log('INFO, Completing order...');
+        return this.Status;
     };
     this.PaymentGateway = function() {
         console.log('INFO, Made payment');
