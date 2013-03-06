@@ -14,7 +14,7 @@ connect.on('ready', function() {
             setInterval(function(){
                 var newOrder = new order(++orderId);
                 var service = new orderService(newOrder);
-                service.ProcessOrder();
+                service.Checkout();
                 publish = ex.publish('order.key', JSON.stringify(newOrder), {deliveryMode:2}, function(isError){
                     if (isError)
                         console.log('ERROR, Order has not been acknowledged. ' + args);

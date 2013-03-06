@@ -5,6 +5,7 @@ var connect = require('amqp').createConnection();
 connect.on('ready', function() {
     var ex = connect.exchange('shop.exchange', {type: 'direct', confirm:true});
     var q = connect.queue('shop.queue', {durable:true, autoDelete:false});
+
     q.on('queueDeclareOk', function(args) {
         q.bind('shop.exchange', 'order.key');
         q.on('queueBindOk', function() {
@@ -13,17 +14,8 @@ connect.on('ready', function() {
                 var status = service.ProcessOrder();
 
                 if (status === 'OrderComplete') {
-                    var exf = connect.exchange('shop.fanout.exchange', {type: 'fanout'});
-                    var qf = connect.queue('shop.queue');
-                    q.on('queueDeclareOk', function(args) {
-                        q.bind('shop.fanout.exchange', 'order.key');
-                        q.on('queueBindOk', function() {
-                            ex.publish('order.key', JSON.stringify(newOrder));
-                            //service.UpdateInventory();
-                            //service.SendEmail();
-                            //service.UpdateReporting();
-                        });
-                    });
+                   var exf = connect.exchange('shop.fanout.exchange', {type: 'fanout'});
+                   exf.publish('', JSON.stringify(service.Order));
                 }
 
                 q.shift();

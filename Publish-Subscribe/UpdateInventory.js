@@ -6,7 +6,7 @@ connect.on('ready', function() {
     var ex = connect.exchange('shop.fanout.exchange', {type: 'fanout'});
     var q = connect.queue('shop.inventory.queue');
     q.on('queueDeclareOk', function(args) {
-        q.bind('shop.fanout.exchange', 'order.key');
+        q.bind('shop.fanout.exchange', '');
         q.on('queueBindOk', function() {
             q.subscribe(function(message) {
                 var service = new orderService(unescape(message.data));
