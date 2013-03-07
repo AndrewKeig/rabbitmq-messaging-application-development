@@ -1,5 +1,3 @@
-var connect = require('amqp').createConnection();
-
 module.exports = function OrderService(order) {
     this.Order = order;
     this.Checkout = function() {
@@ -26,5 +24,8 @@ module.exports = function OrderService(order) {
     };
     this.UpdateReporting = function() {
         console.log('INFO, Updated reporting');
+    };
+    this.UpdateRecommendations = function() {
+        console.log('INFO, Updated recommendations');
     };
 };

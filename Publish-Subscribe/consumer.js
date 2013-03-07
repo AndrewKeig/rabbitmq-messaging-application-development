@@ -12,12 +12,10 @@ connect.on('ready', function() {
             q.subscribe({ack:true}, function(message) {
                 var service = new orderService(unescape(message.data));
                 var status = service.ProcessOrder();
-
                 if (status === 'OrderComplete') {
                    var exf = connect.exchange('shop.fanout.exchange', {type: 'fanout'});
                    exf.publish('', JSON.stringify(service.Order));
                 }
-
                 q.shift();
                 console.log('INFO, Remove order from queue.');
             });
