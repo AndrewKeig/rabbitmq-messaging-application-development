@@ -1,4 +1,4 @@
-require('../setup').Init('Publish Subscribe Update Inventory.');
+require('../setup').Init('Complex Routing Update Inventory.');
 var orderService = require('./orderService');
 var connect = require('amqp').createConnection();
 

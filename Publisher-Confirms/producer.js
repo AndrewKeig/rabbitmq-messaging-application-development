@@ -15,9 +15,9 @@ connect.on('ready', function() {
                 var newOrder = new order(++orderId);
                 var service = new orderService(newOrder);
                 service.ProcessOrder();
-                publish = ex.publish('order.key', JSON.stringify(newOrder), {deliveryMode:2}, function(isError){
+                ex.publish('order.key', JSON.stringify(newOrder), {deliveryMode:2}, function(isError){
                     if (isError)
-                        console.log('ERROR, Order has not been acknowledged. ' + args);
+                        console.log('ERROR, Order has not been acknowledged.');
                 });
              }, 1000);
         });

@@ -11,8 +11,8 @@ connect.on('ready', function() {
             q.subscribe({ack:true}, function(message) {
                 var service = new orderService(unescape(message.data));
                 service.ProcessOrder();
-                //q.shift();
-                console.log('INFO, Remove order from queue.');
+                q.shift();
+                console.log('WARN, Remove order from queue.');
             });
         });
     });

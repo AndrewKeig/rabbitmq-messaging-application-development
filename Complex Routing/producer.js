@@ -1,7 +1,9 @@
-require('../setup').Init('Publish Subscribe Producer.');
+require('../setup').Init('Complex Routing Producer.');
 var order = require('../Shop/order');
 var orderService = require('./orderService');
 var connect = require('amqp').createConnection();
+var logging = require('./logging');
+var logger = new logging();
 var orderId = 0;
 
 connect.on('ready', function() {
@@ -17,7 +19,7 @@ connect.on('ready', function() {
                 service.Checkout();
                 publish = ex.publish('order.key', JSON.stringify(newOrder), {deliveryMode:2}, function(isError){
                     if (isError)
-                        console.log('ERROR, Order has not been acknowledged.');
+                        logger.Log("ORDER", "ERROR", "Order has not been acknowledged");
                 });
             }, 1000);
         });
