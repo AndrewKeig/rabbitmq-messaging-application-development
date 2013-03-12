@@ -4,12 +4,6 @@ var orderService = require('./orderService');
 var connect = require('amqp').createConnection();
 var orderId = 0;
 
-//connect.options['heartbeat'] = 10;
-//connect.on('heartbeat', function() {
-//  console.log(" <- heartbeat");
-//  this.end();
-//});
-
 connect.on('ready', function() {
     var ex = connect.exchange('shop.exchange', {type: 'direct'});
     var q = connect.queue('shop.queue');
