@@ -14,6 +14,7 @@ connect.on('ready', function() {
                 var status = service.ProcessOrder();
                 if (status === 'OrderComplete') {
                    var exf = connect.exchange('shop.fanout.exchange', {type: 'fanout'});
+                   exf.setMaxListeners(0);
                    exf.publish('', JSON.stringify(service.Order));
                 }
                 q.shift();

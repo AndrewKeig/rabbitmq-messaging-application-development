@@ -1,5 +1,5 @@
 var util = require('util');
 
-exports.hello = function hello(to) {
-    util.puts(util.format('Hello %s', to));
+exports.hello = function hello() {
+    util.puts('Hello world');
 }

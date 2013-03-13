@@ -1,4 +1,4 @@
-require('../setup').Init('Publish Subscribe SendEmail.');
+require('../setup').Init('Publish Subscribe Send Email.');
 var orderService = require('./orderService');
 var connect = require('amqp').createConnection();
 

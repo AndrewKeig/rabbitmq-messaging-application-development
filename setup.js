@@ -4,7 +4,7 @@ module.exports.Init = function(example){
     console.log('- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -');
     console.log('- Instant RabbitMQ Messaging Application Development How-to.  -');
     console.log('- Packt Publishing.                                           -');
-    console.log('- Andrew Keig.                                                -');
+    console.log('- Author: Andrew Keig.                                                -');
     console.log('- ' + example +'                                 -');
     console.log('- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -');
     console.log('');
@@ -21,8 +21,6 @@ module.exports.Init = function(example){
     console.log("|                   |");
     console.log("+-------------------+");
 
-
-    //http://hjzhao.blogspot.co.uk/2012/05/first-error-with-nodejs.html
     process.on('SIGINT', function() {
         process.exit(1);
     });

@@ -1,5 +1,5 @@
-var logging = require('./logging');
-var logger = new logging();
+var loggingService = require('./loggingService');
+var logger = new loggingService();
 
 module.exports = function OrderService(order) {
     this.Order = order;
@@ -9,10 +9,7 @@ module.exports = function OrderService(order) {
     this.ProcessOrder = function() {
         this.PaymentGateway();
         this.UpdateStatus();
-        logger.Log("ProcessOrder", "INFO", "Thank you for placing your order");
-        if (this.Order.Id = 10)
-            logger.Log("ORDER", "ERROR", "Unable to make payment");
-
+        logger.Log("ProcessOrder", "INFO", "Thank you for placing your order");        
         return this.Status;
     };
     this.PaymentGateway = function() {

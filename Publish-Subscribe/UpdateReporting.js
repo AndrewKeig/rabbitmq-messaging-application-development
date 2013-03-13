@@ -1,4 +1,4 @@
-require('../setup').Init('Publish Subscribe UpdateReporting.');
+require('../setup').Init('Publish Subscribe Update Reporting.');
 var orderService = require('./orderService');
 var connect = require('amqp').createConnection();
 

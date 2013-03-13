@@ -1,41 +1,32 @@
-require('../setup').Init('Heartbeats.');
+require('../setup').Init('Complex Routing Producer.');
 var order = require('../Shop/order');
 var orderService = require('./orderService');
 var connect = require('amqp').createConnection();
+var logging = require('./loggingService');
+var logger = new logging();
 var orderId = 0;
-
-connect.options['heartbeat'] = 1;
-connect.on('heartbeat', function() {
-  console.log("heartbeat, Heartbeat");
-  //this.end();
-});
-
-connect.on('error', function(e) {
-  console.log("ERROR, " + e);
-  //this.end();
-});
-
-connect.on('close', function(e) {
-  console.log("INFO, close");
- // this.end();
-});
 
 connect.on('ready', function() {
     var ex = connect.exchange('shop.exchange', {type: 'direct', confirm:true});
+    ex.setMaxListeners(0);
     var q = connect.queue('shop.queue', {durable:true, autoDelete:false});
     q.on('queueDeclareOk', function(args) {
         q.bind('shop.exchange', 'order.key');
         q.on('queueBindOk', function() {
             console.log("Place your order");
-             setInterval(function(){
+            setInterval(function(){
                 var newOrder = new order(++orderId);
                 var service = new orderService(newOrder);
-                service.ProcessOrder();
+                service.Checkout();
+                
+                if (orderId == 10)
+                    logger.Log("Order", "ERROR", "Unable to make payment for " + orderId);
+
                 ex.publish('order.key', JSON.stringify(newOrder), {deliveryMode:2}, function(isError){
                     if (isError)
-                        console.log('ERROR, Order has not been acknowledged.');
+                        logger.Log("Order", "ERROR", "Order has not been acknowledged");
                 });
-             }, 1000);
+            }, 1000);
         });
     });
 });

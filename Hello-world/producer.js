@@ -1,4 +1,3 @@
-//source ~/.bashrc
 require('../setup').Init('Hello World.');
 var connect = require('amqp').createConnection();
 var messages = [];

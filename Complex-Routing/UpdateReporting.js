@@ -1,4 +1,4 @@
-require('../setup').Init('Complex Routing UpdateReporting.');
+require('../setup').Init('Complex Routing Update Reporting.');
 var orderService = require('./orderService');
 var connect = require('amqp').createConnection();
 

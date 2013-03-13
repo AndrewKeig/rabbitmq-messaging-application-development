@@ -1,4 +1,4 @@
-require('../setup').Init('Complex Routing SendEmail.');
+require('../setup').Init('Complex Routing Send Email.');
 var orderService = require('./orderService');
 var connect = require('amqp').createConnection();
 

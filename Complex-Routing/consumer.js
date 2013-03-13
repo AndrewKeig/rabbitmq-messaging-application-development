@@ -1,7 +1,7 @@
 require('../setup').Init('Complex Routing Consumer.');
 var orderService = require('./orderService');
 var connect = require('amqp').createConnection();
-var logging = require('./logging');
+var logging = require('./loggingService');
 var logger = new logging();
 
 connect.on('ready', function() {
@@ -12,10 +12,12 @@ connect.on('ready', function() {
         q.bind('shop.exchange', 'order.key');
         q.on('queueBindOk', function() {
             q.subscribe({ack:true}, function(message) {
+                console.log('subscribe');
                 var service = new orderService(unescape(message.data));
                 var status = service.ProcessOrder();
                 if (status === 'OrderComplete') {
                    var exf = connect.exchange('shop.fanout.exchange', {type: 'fanout'});
+                   exf.setMaxListeners(0);
                    exf.publish('', JSON.stringify(service.Order));
                 }
                 q.shift();
