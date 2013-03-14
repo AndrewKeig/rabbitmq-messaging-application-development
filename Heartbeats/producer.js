@@ -1,6 +1,6 @@
-var PubSub = require("./pubsub");
-var pubsub = new PubSub();
+var pubSub = require("./pubsub");
+//var pubsub = new PubSub();
 
 setInterval(function(){
-    pubsub.Publish('shop-queue', 'publishing');
+    pubSub.Publish('shop-queue', 'publishing');
 }, 100);

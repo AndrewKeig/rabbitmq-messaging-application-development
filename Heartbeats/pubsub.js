@@ -1,5 +1,7 @@
 var amqp = require("amqp");
-var PubSub = function() {};
+var PubSub = function() {
+  if (!this instanceof PubSub) return new PubSub();
+};
 
 PubSub.prototype.Publish = function(name, message) {
   var connect = require('amqp').createConnection();
@@ -8,10 +10,10 @@ PubSub.prototype.Publish = function(name, message) {
     var ex = connect.exchange();
     var q = connect.queue(name);
     q.on('queueDeclareOk', function(args) {
-        q.bind('#');
-        q.on('queueBindOk', function() {           
-          ex.publish(name, message, {});
-        });
+      q.bind('#');
+      q.on('queueBindOk', function() {           
+        ex.publish(name, message, {});
+      });
     });
   });
   connect.on('heartbeat', function() {
@@ -56,4 +58,4 @@ PubSub.prototype.Subscribe = function(name, callback) {
   }); 
 };
 
-module.exports = PubSub;
+module.exports = new PubSub();
