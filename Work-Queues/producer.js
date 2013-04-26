@@ -16,6 +16,8 @@ connect.on('ready', function() {
                 var service = new orderService(newOrder);
                 service.Checkout();
                 ex.publish('order.key', JSON.stringify(newOrder));
+                ex.close();
+                q.close();
             }, 100);
         });
     });
